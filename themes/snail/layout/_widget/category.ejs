@@ -1,0 +1,12 @@
+<!-- Categories -->
+<h5><%= __('分类') %></h5>
+<div class="widget">
+    <%- list_categories({show_count: theme.show_count}) %>
+</div>
+
+<% if (site.categories.length){ %>
+    <h5><%= __('分类') %></h5>
+    <div class="widget">
+      <%- list_categories({show_count: theme.show_count}) %>
+    </div>
+<% } %>

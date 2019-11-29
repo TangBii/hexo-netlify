@@ -1,0 +1,11 @@
+<% if(config['search']['enable']) { %>
+
+<h5>搜索</h5>
+<div id="site_search">
+	<div class="form-group">
+		<input type="text" id="local-search-input" name="q" results="0" placeholder="<%= __('在此处搜索') %>" class="st-search-input st-default-search-input form-control"/>
+	</div>
+	<div id="local-search-result"></div>
+</div>
+
+<% }%>

@@ -1,0 +1,245 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: 螳臂
+subtitle: 知耻而后勇
+author: TangBii
+language: zh-CN
+timezone:
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://globellot.com       # Note: don't forget to modify the CNAME file to your url
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+
+#Custom Setting Start
+
+# Site settings
+SEOTitle: 螳臂|的博客
+email: 601098499@qq.com
+description: "螳臂的前端博客"
+keyword: "前端，JavaScript, React"
+header-img: img/background.webp
+signature: true #show signature
+signature-img: img/signature.png
+
+# SNS settings
+github_username:    TangBii
+
+# Build settings
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+# Disqus settings
+disqus_username: 
+
+# Analytics settings
+# Baidu Analytics
+# ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
+# Google Analytics
+ga_track_id: 'UA-XXXXXXXX-X'          # Format: UA-xxxxxx-xx
+ga_domain: yoursite
+
+# Sidebar settings
+sidebar: true                      # whether or not using Sidebar.
+sidebar-about-description: "@TangBii|欢迎来到我的博客"
+sidebar-about-connection: "601098499@qq.com"
+sidebar-avatar: img/avatar.png     # use absolute URL, seeing it's used in both `/` and `/about/`
+widgets:
+- search
+- short-about
+- featured-tags
+- recent-posts
+#- friends-blog
+- archive
+
+## Search
+search:
+  enable: true
+  path: search.xml
+  field: post
+  content: true
+
+# widget behavior
+## Archive
+archive_type: 'monthly'
+show_count: true
+
+
+## Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 0              # A tag will be featured if the size of it is more than this condition value
+
+toc:
+  maxdepth: 3
+  class: toc
+  slugify: transliteration
+  decodeEntities: false
+  anchor:
+    position: after
+    symbol: '#'
+    style: header-anchor
+## Friends
+#friends: [
+#    {
+#        title: "Dusign's Blog",
+#        href: "https://blog.csdn.net/d_Nail"
+#    }
+#]
+
+math:
+  enable: true
+  engine: mathjax
+
+#Custom Setting End
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :year-:month-:day-:title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+home_posts_tag: true # show posts tags
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: archives
+
+archive_generator:
+  per_page: 10
+  yearly: true
+  monthly: true
+  daily: false
+  
+# Markdown-it config
+## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki
+markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '“”‘’'
+  
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: snail
+
+#sitemap
+sitemap:
+  path: sitemap.xml
+## Baidusitemap
+baidusitemap:
+path: baidusitemap.xml
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+
+#deploy:
+#  type: git
+#  repo:
+#    coding: https://e.coding.net/tangbii/TangBii.git
+#    github: git@github.com:TangBii/tangbii.github-io.git
+#  branch: master
+
+deploy:
+  type: git
+  repository: git@github.com:TangBii/hexo-Netlify.git
+  branch: run-page
+
+# Comment
+## This comment system is gitment
+## gitment url: https://github.com/imsun/gitment
+comment:
+  enable: true
+  owner: TangBii
+  repo: tangbii.github.io
+  client_id: b2813d0cddf935fbd308
+  client_secret: 94c26a3f23d596775c6d6c5989d1da87d3216a33
+  gitment:
+    enable: true
+    owner: TangBii
+    repo: tangbii.github.io
+    client_id: b2813d0cddf935fbd308
+    client_secret: 94c26a3f23d596775c6d6c5989d1da87d3216a33
+## music
+metingjs:
+  enable: true
+
+# Tip
+tip:
+  enable: true
+  content: 欢迎访问螳臂的博客,若有问题或建议欢迎留言。如果博客中使用的图片侵犯了您的版权，请联系作者删除它们。谢谢你!
+share: true
+# Background effects
+## If there is no effect after modification, please empty the cache and try again.
+## ⚠️ The following special effects will take up a lot of cpu resorces, please open it carefully.
+bg_effects:
+  enable: false
+  line:
+    enable: false
+    color: 129,200,61
+    pointColor: 129,200,61
+    opacity: 0.7
+    zIndex: -9
+    count: 99
+  mouse_click:
+    enable: false
+    content: '"🌱","just do it","🌾","🍀","don''t give up","🍂","🌻","try it again","🍃","never say die","🌵","🌿","🌴"'
+    color: '"rgb(121,93,179)"
+          ,"rgb(76,180,231)"
+          ,"rgb(184,90,154)"
+          ,"rgb(157,211,250)"
+          ,"rgb(255,0,0)"
+          ,"rgb(242,153,29)"
+          ,"rgb(23,204,16)"
+          ,"rgb(222,0,0)"
+          ,"rgb(22,36,92)"
+          ,"rgb(127,24,116)"
+          ,"rgb(119,195,79)"
+          ,"rgb(4,77,34)"
+          ,"rgb(122,2,60)"'
+  star:
+    enable: false
+
+# Visitor statistics
+visitor:
+  enable: false
+  type: 
