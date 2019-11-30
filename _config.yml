@@ -47,7 +47,7 @@ ga_domain: yoursite
 sidebar: true                      # whether or not using Sidebar.
 sidebar-about-description: "@TangBii|欢迎来到我的博客"
 sidebar-about-connection: "601098499@qq.com"
-sidebar-avatar: img/avatar.png     # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: img/avatar.jpg     # use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
 - search
 - short-about
