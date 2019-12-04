@@ -23,8 +23,7 @@ SEOTitle: 螳臂|的博客
 email: 601098499@qq.com
 description: "螳臂的前端博客"
 keyword: "前端，JavaScript, React"
-# header-img: img/background.webp
-header-img: https://s2.ax1x.com/2019/12/02/Quqj3Q.jpg
+header-img: img/background.webp
 signature: true #show signature
 signature-img: img/signature.png
 
