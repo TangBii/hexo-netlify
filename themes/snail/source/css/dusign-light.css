@@ -154,6 +154,7 @@ hr.small {
 pre,
 .table-responsive {
   -webkit-overflow-scrolling: touch;
+  overflow:hidden;
 }
 pre code {
   display: block;
