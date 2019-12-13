@@ -469,6 +469,7 @@ pre code {
   }
 }
 .intro-header .post-heading h1 {
+  white-space:nowrap;
   font-size: 30px;
   margin-bottom: 24px;
 }
