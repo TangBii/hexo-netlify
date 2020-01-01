@@ -11,7 +11,7 @@ tags: ['webStorage', '客户端识别', 'web 存储']
 
 ## 1. 概念
 
-Web Storage 与 cookie 概念类似，都用于存储会话数据。但是 Web Storage 仅在本地存储数据，存储容量也比 cookie 更大 (一般为 5M, cookie 为 4K)
+Web Storage 与 [cookie](/2019/12/31/非权威指南-cookie/) 概念类似，都用于存储会话数据。但是 Web Storage 仅在本地存储数据，存储容量也比 cookie 更大 (一般为 5M, cookie 为 4K)
 
 Web Storage包括两种存储方式：`sessionStorage` 和 `localStorage` ，这两种存储方式的唯一区别是生命周期。前者在会话结束(浏览器/标签关闭)后删除，后者理论上不手动删除将永久存在。
 
