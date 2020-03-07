@@ -1475,6 +1475,252 @@ var maxDepth = function (root) {
   - 每层循环再循环 nodes.length 次，即对队列中每一个元素执行一下操作
     - 取出队首元素，如果该元素的左右子树存在，则将其左右子树放入队列
 
+## 24. 二叉树的层次遍历 Ⅱ ※
+
+### 题目描述
+
+> 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+>
+> 例如：
+> 给定二叉树 [3,9,20,null,null,15,7],
+>
+> ```js
+>     3
+>    / \
+>   9  20
+>     /  \
+>    15   7
+> ```
+>
+> 返回其自底向上的层次遍历为：
+>
+> ```js
+> [
+>   [15,7],
+>   [9,20],
+>   [3]
+> ]
+> ```
+
+### 代码实现1
+
+```js
+var levelOrderBottom = function(root) {
+    if (root === null) {
+        return []
+    }
+    function order(root, index, result = []) {
+        if(result[index] === undefined) {
+            result[index] = []
+        }
+        result[index].push(root.val)
+        if (root.left !== null) {
+            order(root.left, index + 1, result)
+        }
+        if (root.right !== null) {
+            order(root.right, index + 1, result)
+        }
+        return result
+    }
+    return order(root, 0).reverse()
+};  
+```
+
+### 解题思路
+
+- 每层元素存储为一个数组
+
+### 注意事项
+
+- 递归第一行检测 `result[index]` 的意义是给每一层元素设置一个数组，考虑添加左树和右树的时候都要使用，为避免重复，所以检测。
+
+### 代码实现2
+
+```js
+var levelOrderBottom = function(root) {
+  if (root === null) {
+      return []
+  }
+  let nodes = [[root]],
+      deep = 0
+
+  while(true) {
+      let preNode = nodes[deep],
+          curr = []
+     for (let index in preNode) {
+         let leftTree = preNode[index].left,
+              rightTree = preNode[index].right
+         if(leftTree !== null) {
+             curr.push(leftTree)
+         }
+         if(rightTree !== null) {
+             curr.push(rightTree)
+         }
+     }
+     if (curr.length === 0) {
+         break
+     }
+     nodes.push(curr)
+     deep++
+  }
+  return nodes.reduce((accum, curr) => {
+      let value = []
+      for (let index in curr) {
+           value.push(curr[index].val)
+      }
+      accum.push(value)
+      return accum
+  }, []).reverse()
+};
+```
+
+### 解题思路
+
+- 使用循环代替递归
+- nodes 数组用来存储每一层元素，使用 deep 记录层数。
+- 每一次循环取出前一层的树根遍历，把它们的左右子树添加到一个新数组
+- 循环结束时把新数组添加到 nodes 中
+
+### 注意事项
+
+- 当新数组长度为 0 时说明所有节点都已将加入了 nodes 数组
+
+## 25. 将有序数组转换为平衡二叉树
+
+### 题目描述
+
+> 将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
+>
+> 本题中，一个高度平衡二叉树是指一个二叉树*每个节点* 的左右两个子树的高度差的绝对值不超过 1。
+>
+> 给定有序数组: [-10,-3,0,5,9],
+>
+> 一个可能的答案是：[0,-3,9,-10,null,5]，它可以表示下面这个高度平衡二叉搜索树：
+>
+> ```js
+>       0
+>      / \
+>    -3   9
+>    /   /
+>  -10  5
+> ```
+
+### 代码实现
+
+```js
+var sortedArrayToBST = function(nums) {
+    function getBST(nums) {
+        if(nums.length === 0) {
+            return null
+        }
+        let mid = parseInt(nums.length / 2),
+            left = nums.slice(0, mid),
+            right = nums.slice(mid + 1, nums.length),
+            root = new TreeNode(nums[mid])
+        root.left = getBST(left)
+        root.right = getBST(right)    
+        return root
+    }
+    return getBST(nums)
+};
+```
+
+### 解题思路
+
+- 递归，传入数组长度为 0 时返回 null
+- 树根为中间节点，左树遍历生成，右树遍历生成
+- 左树遍历参数为左半数组，右树遍历参数为右半数组
+
+### 注意事项
+
+- 注意要返回的是数组还是树根
+
+## 26. 判断是否是平衡二叉树
+
+### 题目描述
+
+> 给定一个二叉树，判断它是否是高度平衡的二叉树。
+>
+> 本题中，一棵高度平衡二叉树定义为：
+>
+> 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+>
+> 示例 1:
+>
+> 给定二叉树 [3,9,20,null,null,15,7]
+>
+> ```js
+>     3
+>    / \
+>   9  20
+>     /  \
+>    15   7
+> ```
+>
+>  返回 `true` 
+
+### 代码实现1
+
+```js
+var isBalanced = function(root) {
+    function getDeep(root) {
+        if(root === null) {
+            return -1
+        }
+        return 1 + Math.max(getDeep(root.left), getDeep(root.right))
+    }
+    function computedDeep(root) {
+        if(root === null) {
+            return true
+        }
+        if(Math.abs(getDeep(root.left) - getDeep(root.right)) > 1) {
+            return false
+        }
+        return computedDeep(root.left) && computedDeep(root.right)
+    }
+    return computedDeep(root)
+};
+```
+
+### 解题思路
+
+自顶而上遍历每个节点比较左子树的高度和右子树的高度
+
+### 注意事项
+
+判断树的高度时，可以不利用临时变量，直接在 return 的地方加 1，如果是 null 返回 -1
+
+### 代码实现 2
+
+```js
+var isBalanced = function(root) {
+    let result = true
+    function helper(root) {
+        if(result) {
+            if (root === null) {
+                return -1
+            }
+            let leftDeep = 1 + helper(root.left),
+                rightDeep = 1 + helper(root.right)
+            if(Math.abs(leftDeep - rightDeep) > 1) {
+                result = false
+            }
+            return Math.max(leftDeep, rightDeep)
+            }
+    }
+    helper(root)
+    return result
+};
+```
+
+### 解题思路
+
+- 自底而上遍历每个节点，避免高度的重复计算
+
+
+
+
+
 ---
 
 
