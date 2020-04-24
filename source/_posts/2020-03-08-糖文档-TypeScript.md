@@ -1062,7 +1062,7 @@ function say(s: Person | Student) {
 
 但是这就需要多次用到断言，如果我们一旦检测了类型就能在之后的分支清楚知道类型就好了。TypeScript 的**类型保护**机制实现了这个功能。
 
-要定义一个类型保护只需要定义一个返回 `类型谓词` 的函数。谓词为 `parameterName is Type`  格式，`parameterName` 必须来自当前函数的一个参数名。
+要定义一个类型保护只需要定义一个返回 类型谓词 的函数。谓词为 `parameterName is Type`  格式，`parameterName` 必须来自当前函数的一个参数名。
 
 我们使用类型改造一下之前的例子
 
@@ -1085,7 +1085,7 @@ function say(s: Person | Student) {
 
 **typeof 类型保护**
 
-识别基本类型不必每次都定义一个 `类型谓词` 函数，TypeScript 会把 `typeof` 值等于 `number`、`string`、`boolean` 、`symbol` 的表达式识别为类型保护，如
+识别基本类型不必每次都定义一个类型谓词函数，TypeScript 会把 `typeof` 值等于 `number`、`string`、`boolean` 、`symbol` 的表达式识别为类型保护，如
 
 ```js
 function fn(arg: number | string): number {
@@ -1162,6 +1162,53 @@ function fn(arg: combine): number {
 }
 ```
 
+### 9.5 索引类型
+
+- `keyof T`
+
+  返回对象 T 的键的联合类型
+
+  ```js
+  interface Person {
+    name: string,
+    age: 18
+  }
+  
+  type a = keyof Person // a 的类型即为 name | age
+  ```
+
+- `T[K]`
+
+- `T extends U`
+
+### 9.6 映射类型
+
+- `Readonly<T>` 将 T 所有属性变为只读
+
+  ```ts
+  type Readonly<T> = readonly [P in keyof T]: T[P]
+  ```
+
+- `Partial<T>` 将 T 所有属性变为可选
+
+  ```ts
+  type Partial<T> = [P in keyof T]?: T[P]
+  ```
+
+- `Pick<T, K>` 从 T 中抽取属性 K
+
+  ```ts
+  type Pick<T, K extends keyof T> = [P in K]: T[P]
+  ```
+
+- `Record<K, T>`
+
+  ```ts
+  type Record<K extends keyof any, T> = [P in K]: T
+  ```
+
+  
+
 ## 10. 模块
 
 ### 10.1 export = & import = require()
@@ -1201,6 +1248,89 @@ const s: Person.IStudent = {
 const t: Person.ITeacher = {
   name: 'self',
   course: 'front-end'
+}
+```
+
+## 12. 配置文件
+
+TS 的配置定义在 `tsconfig.json` 
+
+### 12.1 文件相关
+
+```json
+{
+    "files": [],	// 要编译的文件
+    "include": [],	// 要编译的目录
+    "exclude": [],  // 要排除的目录或文件，默认排除 node_modules 和声明文件
+    "extends": "",  // 继承基本配置文件
+    "compileOnSave": true  // 保存自动编译， vsCode 不支持
+}
+```
+
+### 12.2 编译相关
+
+```json
+{
+	"compilerOptions": {
+        "incremental": true , 		// 增量编译，提升第二次编译速度
+        "tsBuildInfoFile": "path",  // 增量编译文件的存储位置
+        "diagnostics": true,  	    // 打印诊断信息
+        
+        "target": "es5", 	// 目标语言的版本
+        "module": "es6", 	// 使用的模块化标准
+        "outFile": "path",  // 把多个依赖文件打包成一个，用于 AMD 规范
+        
+        "lib": [],	// 要导入的类库
+        
+        "allowJS": true,    // 允许编译 JS 文件 (js, jsx)
+        "checkJS": true,    // 允许在 JS 文件中报错， 通常与上一个选项一起使用
+        "outDir": "path",   // 指定输出目录
+        "rootDir": "path",  // 指定输入文件目录(控制输出文件目录结构)
+        
+        "declaration": true,  		   // 自动生成声明文件
+        "declarationDir": "path",      // 声明文件的路径
+        "emitDeclarationOnly": true,   // 只生成声明文件
+        "typeRoots": [],  // 声明文件目录，默认 node_modules/types
+        "types": [],	  // 声明文件包
+        
+        "sourceMap": true,   	   // 生成 sourceMap
+        "inlineSourceMap": true,   // 生成 inline-sourceMap
+        "declarationMap": true,    // 生成声明文件的 sourceMap
+        
+        "removeComments": true,		// 删除注释
+        
+        "noEmit": true,    		// 不输出文件
+        "noEmitOnError": true,  // 发生错误时不输出文件
+        
+        "noEmitHelpers": true, 	// 不生成 helper 函数
+        "importHelpers": true,  // 导入 helper 函数， 文件必须是模块
+        
+        "downlevelIteration": true,  // 降级遍历器实现
+        
+        "strict": true, // 开启严格模式，开启后下面选项都为 true
+        "alwaysStrict": true,    // 在代码中注入 "use strict"
+        "noImplicitAny": true,   // 不允许隐式的 any 类型
+        "strictNullChecks": true, // 不允许把 undefined 和 null 赋值给其他变量
+        "strictFunctionTypes": false, // 不允许函数参数双向协变
+        "strictPropertyInitialization": true,  // 类的实例属性必须初始化
+        "strictBindCallApply": true,  // 严格的 bind/call/apply 检查
+        "noImplicitThis": true,       // 不允许 this 有隐式的 any 类型
+        
+        "noUnusedLocals": true,      		// 检查未使用的变量
+        "noUnusedParameters": true,    		// 检查未使用的参数
+        "noFallthroughCasesInSwitch": true, // 防止 switch 贯穿
+        "noImplicitReturns": true,			// 每个语句都要有返回值
+        
+        "esModuleInterop": true,     // 允许 export = 导出， import from 导入
+        "allowUmdGlobalAccess": true, // 允许在模块中访问 UMD 全局变量
+        "moduleResolution": "node",	 // 模块解析策略
+        "baseUrl": "./",  // 解析非相对模块的基地址
+        "paths": {},	  // 路径映射
+        "rootDirs": [],	  // 将多个目录放在一个虚拟目录下
+        
+        "listEmittedFiles": true,  // 打印输出的文件
+        "listFiles": true,    	   // 打印编译的文件
+    }
 }
 ```
 
